@@ -1,0 +1,3 @@
+[submodule "GraphicsDL"]
+	path = GraphicsDL
+	url = msraig@vs-ssh.visualstudio.com:v3/msraig/GraphicsDL/GraphicsDL

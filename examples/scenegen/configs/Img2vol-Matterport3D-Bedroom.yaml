@@ -1,0 +1,152 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+type: BaseRunnerV2
+epochs: 10000
+epochs_stat: 0
+epoch_stride: 100
+validator_type: ValidatorCallback
+validate_stride: 100
+show_iters: 100
+debug: 0
+
+solver_mode: sequential
+solver_ratio: [1, 2]
+
+shared:
+  num_devices: 1
+  view_fov: [0.8882, 1.0731]
+
+readers:
+  - type: DefaultTFReader
+    name: TFio
+    compress: ZLIB
+    shuffle: 1
+    prefix: train
+    batch_size: 512
+    in_params:
+      -
+        name: category
+        type: string-uint8
+        raw_shape: [16, 20]
+        postprocess: flip-2-reshape-4-oh-9
+        process_group: 1
+      -
+        name: depth
+        type: string-float32
+        raw_shape: [16, 20]
+        postprocess: flip-2-reshape-4-dim-4
+        process_group: 1
+  - type: RandomReaderV1
+    name: Rio
+    shuffle: 1
+    batch_size: 128
+    in_params:
+      -
+        name: runtime_random_z_d
+        type: float32
+        raw_shape: [128]
+  - type: Mat3DBedroomRoomSizeReader
+    name: Sio
+    shuffle: 1
+    batch_size: 128
+    in_params:
+      -
+        name: runtime_random_z_d
+        type: float32
+        postprocess: scale-5
+  -
+    type: RandomReaderV1
+    name: RioTest
+    num_samples: 12800
+    shuffle: 0
+    batch_size: 128
+    in_params:
+      -
+        name: runtime_random_z_d
+        type: float32
+        raw_shape: [128]
+  - type: Mat3DBedroomRoomSizeReader
+    name: SioTest
+    num_samples: 12800
+    shuffle: 0
+    infinite: 1
+    batch_size: 128
+    in_params:
+      -
+        name: runtime_random_z_d
+        type: float32
+        postprocess: scale-5
+
+nets:
+  -
+    type: RoomSizeEmbedding
+    name: CondR
+    method: spatial
+    out_channels: 128
+    net_channels: 32
+    vox_size: [32, 16, 32]
+  -
+    type: Code2VolSpatialCondGenerator
+    name: VolG
+    out_channels: 9
+  -
+    type: RandomMatterport3DFarViewRenderer
+    name: Renderer
+    view_num: 4
+    camera_num: 4
+    shuffle_view: 1
+    vox_size: [32, 16, 32]
+    view_size: [16, 20]
+    with_depth: 1
+    out_activation: softmax
+  -
+    type: AttentionPairwiseDiscriminator
+    name: APViewD
+    view_set: [4]
+    down_sample: 5
+    flag: 0
+
+losses:
+  -
+    type: BboxCondHingeLossGProxy
+    name: LossG
+  -
+    type: HingeLossDProxy
+    name: LossD
+
+solvers:
+  -
+    type: BaseSolver
+    name: GSolver
+    optimizer:
+      type: Adam
+      name: GOptimizer
+      params: 0.0002-0.5-0.9
+    sequence:
+      loss: LossG
+      nets: [CondR, VolG, Renderer, APViewD]
+      trainable: [CondR, VolG, Renderer]
+      readers: [Rio, Sio]
+      flow: (R0I&(R1I-N0)-N1)&R1I&(M1-N2-N3)
+  -
+    type: BaseSolver
+    name: DSolver
+    optimizer:
+      type: Adam
+      name: DOptimizer
+      params: 0.0002-0.5-0.9
+    sequence:
+      loss: LossD
+      nets: [CondR, VolG, Renderer, APViewD]
+      trainable: [APViewD]
+      readers: [Rio, Sio, TFio]
+      flow: (R0I&(R1I-N0)-N1-N2-N3)&(R2I-N3)
+
+validators:
+  -
+    type: BaseValidatorV2
+    name: GTest
+    sequence:
+      nets: [CondR, VolG]
+      readers: [RioTest, SioTest]
+      flow: ((R0I&(R1I-N0)-N1)&R1I&R0I)

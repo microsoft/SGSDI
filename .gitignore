@@ -101,4 +101,9 @@ venv.bak/
 /site
 
 # mypy
+.idea
 .mypy_cache/
+/examples/*/record/
+/examples/*/log/
+/examples/*/ckp/
+/examples/*/deploy/

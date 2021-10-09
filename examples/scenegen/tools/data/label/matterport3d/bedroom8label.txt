@@ -1,0 +1,8 @@
+1	bed					bed
+2	pillow				pllw
+3	night_stand			stnd
+4	chair				chair
+5	picture				pctr
+6	lamp				lmp
+7	curtain				crtn
+8	table				tb

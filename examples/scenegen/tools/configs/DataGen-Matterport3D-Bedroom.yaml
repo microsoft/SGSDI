@@ -1,0 +1,16 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+dataset_list:
+  -
+    data_dir: 'F:\Datasets\Matterport3D'
+    out_dir: 'F:\Datasets\Matterport3D'
+    data_type: 'Matterport3DDataGen'
+    process_pipelines:
+      -
+        assemble_name: 'assemble_far_view'
+        label_type: 'matterport3d_bedroom_8'
+        room_types: [ 'bedroom' ]
+        room_size: [ 6.4, 6.4 ]
+        room_height: 3.2
+        room_stride: 0.2
+        render_cfg: 'Render-Matterport3D-Bedroom.yaml'
