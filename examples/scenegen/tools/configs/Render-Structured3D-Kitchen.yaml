@@ -1,0 +1,48 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+type: BaseRunnerV2
+show_iters: 100
+debug: 0
+
+solver_mode: sequential
+solver_ratio: [1]
+
+readers:
+  -
+    type: CustomTFReader
+    name: TFio
+    compress: ZLIB
+    shuffle: 0
+    prefix: train
+    in_params:
+      -
+        name: label
+        type: string-uint8
+        raw_shape: [32, 16, 32]
+        postprocess: oh-6
+      -
+        name: cam_t
+        type: string-float32
+        raw_shape: [3]
+      -
+        name: cam_r
+        type: string-float32
+        raw_shape: [3, 3]
+
+nets:
+  -
+    type: ViewRenderer
+    name: Renderer
+    vox_size: [32, 16, 32]
+    view_size: [18, 32]
+    view_fov: [0.8820, 1.3963]
+    with_depth: 1
+
+solvers:
+  -
+    type: BaseSolver
+    name: RSolver
+    sequence:
+      nets: [Renderer]
+      readers: [TFio]
+      flow: (R0I-N0)

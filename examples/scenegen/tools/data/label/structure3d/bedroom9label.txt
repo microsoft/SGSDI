@@ -1,0 +1,9 @@
+1	cabinet			cbnt
+2	bed				bed
+3	chair			chair
+4	picture			pctr
+5	desk			desk
+6	curtain			crtn
+7	television		tv
+8	night_stand		stnd
+9	lamp			lamp

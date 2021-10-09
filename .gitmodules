@@ -1,0 +1,4 @@
+
+[submodule "GraphicsDL"]
+	path = GraphicsDL
+	url = git@github.com:microsoft/GraphicsDL.git

@@ -1,0 +1,5 @@
+1	cabinet			cbnt
+2	picture			pctr
+3	curtain			crtn
+4	refridgerator	rfrgrtr
+5	lamp			lamp
