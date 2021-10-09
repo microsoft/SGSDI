@@ -1,0 +1,11 @@
+1	cabinet			cbnt
+2	chair			chair
+3	sofa			sofa
+4	table			tb
+5	picture			pctr
+6	shelves			shlv
+7	curtain			crtn
+8	pillow			pllw
+9	refridgerator	rfrgrtr
+10	television		tv
+11	lamp			lamp

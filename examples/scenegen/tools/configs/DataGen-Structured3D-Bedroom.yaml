@@ -1,0 +1,32 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+dataset_list:
+  -
+    data_dir: 'F:\Datasets\Structured3D'
+    out_dir: 'F:\Datasets\Structured3D'
+    data_type: 'Structured3DDataGen'
+    process_pipelines:
+      -
+        assemble_name: 'assemble_far_view'
+        label_type: 'structured3d_bedroom_9'
+        room_types: [ 'bedroom' ]
+        room_size: [ 6.4, 6.4 ]
+        room_height: 3.2
+        room_stride: 0.2
+        render_cfg: 'Render-Structured3D-Bedroom.yaml'
+#      -
+#        assemble_name: 'assemble_far_view'
+#        label_type: 'structured3d_living_11'
+#        room_types: [ 'living room' ]
+#        room_size: [ 9.6, 9.6 ]
+#        room_height: 4.8
+#        room_stride: 0.3
+#        render_cfg: 'Render-Structured3D-Living.yaml'
+#      -
+#        assemble_name: 'assemble_far_view'
+#        label_type: 'structured3d_living_11'
+#        room_types: [ 'living room' ]
+#        room_size: [ 9.6, 9.6 ]
+#        room_height: 4.8
+#        room_stride: 0.3
+#        render_cfg: 'Render-Structured3D-Kitchen.yaml'
