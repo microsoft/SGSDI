@@ -10,7 +10,7 @@ seaborn==0.9.0
 sklearn==0.0
 trimesh==3.9.21
 tensorboard==2.5.0
-tensorflow-gpu==2.3.0
+tensorflow-gpu==2.5.1
 tensorflow-addons==0.13.0
 tensorflow-graphics-gpu
 wget==3.2
