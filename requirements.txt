@@ -3,7 +3,7 @@ numpy==1.16.5
 opencv-python==4.0.0.21
 pandas==0.24.2
 plyfile==0.7
-PyYAML==5.1
+PyYAML==5.4
 scipy==1.4.1
 scikit-image==0.15.0
 seaborn==0.9.0
