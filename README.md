@@ -62,7 +62,13 @@ Availabel arguments:
 - `--measure`: Train or Test
 
 ### Pre-trained models
-Download the pretrained model from [OneDrive]()
+The pre-trained models trained on Structured3D (bedroom, living room, kitchen) and Matterport3D (bedroom) dataset.
+Dataset | type | Download
+---|---|---
+Structured3D | bedroom | [ckp-Img2vol-Structured3D-Bedroom.zip](https://github.com/mingjiayang/SGSDI/releases/download/pretrained-model/ckp-Img2vol-Structured3D-Bedroom.zip)
+Structured3D | living room | [ckp-Img2vol-Structured3D-Living.zip](https://github.com/mingjiayang/SGSDI/releases/download/pretrained-model/ckp-Img2vol-Structured3D-Living.zip)
+Structured3D | kitchen | [ckp-Img2vol-Structured3D-Kitchen.zip](https://github.com/mingjiayang/SGSDI/releases/download/pretrained-model/ckp-Img2vol-Structured3D-Kitchen.zip)
+Matterport3D | bedroom | [ckp-Img2vol-Matterport3D-Bedroom.zip](https://github.com/mingjiayang/SGSDI/releases/download/pretrained-model/ckp-Img2vol-Matterport3D-Bedroom.zip)
 
 ### Generate scenes
 #### Generate semantic scene volume
